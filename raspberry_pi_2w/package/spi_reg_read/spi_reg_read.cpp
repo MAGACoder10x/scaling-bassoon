@@ -1,5 +1,3 @@
-//Taken from microchips spi_reg_read mesa demo
-
 #include <cstdlib>
 #include <errno.h>
 #include <fcntl.h>
@@ -15,14 +13,6 @@
 
 
 static int spi_fd = -1;
-
-/* MEBA callouts */
-#define TO_SPI(_a_)     (_a_ & 0x00FFFFFF) /* 24 bit SPI address */
-#define SPI_NR_BYTES     7                 /* Number of bytes to transmit or receive */
-#define SPI_PADDING_MAX 15                 /* Maximum number of optional padding bytes */
-
-/// Max size of SPI transfers
-#define SPI_BUFFER_SIZE 1024
 
 /// SPI Transmit Buffer
 static uint8_t spi_tx_buf[SPI_BUFFER_SIZE];
@@ -93,7 +83,7 @@ int spi_reg_read(const uint32_t addr, uint32_t *const value, uint32_t spi_freq, 
 
     uint8_t tx[SPI_NR_BYTES + SPI_PADDING_MAX] = { 0 };
     uint8_t rx[sizeof(tx)] = { 0 };
-    uint32_t siaddr = TO_SPI(addr);
+    uint32_t siaddr = (addr);
     int ret;
 
     memset(tx, 0xff, sizeof(tx));
@@ -155,7 +145,7 @@ int spi_reg_write(const uint32_t addr, const uint32_t value, uint32_t spi_freq, 
 
     uint8_t tx[SPI_NR_BYTES] = { 0 };
     uint8_t rx[sizeof(tx)] = { 0 };
-    uint32_t siaddr = TO_SPI(addr);
+    uint32_t siaddr = (addr);
     uint32_t read_back;
     int ret;
 
