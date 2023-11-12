@@ -1,0 +1,7 @@
+config BR2_PACKAGE_WEB_APP
+	bool "web_app"
+	depends on BR2_PACKAGE_HOST_RUSTC_TARGET_ARCH_SUPPORTS
+	select BR2_PACKAGE_HOST_CARGO
+	select BR2_PACKAGE_HOST_RUSTC
+	help
+		A rust web application

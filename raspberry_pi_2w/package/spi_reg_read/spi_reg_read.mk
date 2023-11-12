@@ -1,0 +1,13 @@
+########################################
+#
+########################################
+
+SPI_REG_READ_VERSION = 0.1
+SPI_REG_READ_SITE = $(BR2_EXTERNAL_RPI2W_CUSTOM_PATH)/package/spi_reg_read
+SPI_REG_READ_SITE_METHOD = local
+
+SPI_REG_READ_INSTALL_STAGING = NO
+SPI_REG_READ_INSTALL_TARGET = YES
+SPI_REG_READ_CONF_OPTS = -DBUILD_SHARED_LIBS=OFF -DBR2_EXTERNAL_HAWKING_PATH=$(BR2_EXTERNAL_HAWKING_PATH) -DCMAKE_CXX_STANDARD=20
+
+$(eval $(cmake-package))

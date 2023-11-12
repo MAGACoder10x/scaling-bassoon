@@ -1,0 +1,4 @@
+config BR2_PACKAGE_SPI_REG_READ
+	bool "spi_reg_read"
+	help
+		Read a SPI register access
