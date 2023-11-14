@@ -28,5 +28,8 @@ dtoverlay=miniuart-bt
 # enable autoprobing of Bluetooth driver without need of hciattach/btattach
 dtoverlay=krnbt=on
 
+#enable gpio pin 21 for sx1262 hat
+dtoverlay=spi0-1cs,cs0_pin=21
+
 dtparam=spi=on
 
