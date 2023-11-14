@@ -2,6 +2,6 @@
 #
 ##################################################################
 menu "pi zero 2 w options"
-	source "$BR2_EXTERNAL_RPI2W_CUSTOM_PATH/package/web_app/Config.in"
-	source "$BR2_EXTERNAL_RPI2W_CUSTOM_PATH/package/spi_reg_read/Config.in"
+	source "$BR2_EXTERNAL_RPI_CUSTOM_PATH/package/web_app/Config.in"
+	source "$BR2_EXTERNAL_RPI_CUSTOM_PATH/package/spi_reg_read/Config.in"
 endmenu
