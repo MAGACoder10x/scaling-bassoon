@@ -3,10 +3,9 @@
 # web_app
 #
 ################################################################################
-WEB_APP_VERSION = v0.0.1
-WEB_APP_SITE=/run/media/jcoffman/joiot/work/cunning-strudle
-#git@github.com:MAGACoder10x/cunning-strudle.git
-WEB_APP_SITE_METHOD=local
+WEB_APP_VERSION = main
+WEB_APP_SITE=git@github.com:MAGACoder10x/cunning-strudle.git
+WEB_APP_SITE_METHOD=git
 WEB_APP_DEPENDENCIES = \
 	host-rustc
 
