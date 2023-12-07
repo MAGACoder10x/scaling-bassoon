@@ -1,0 +1,83 @@
+--- a/drivers/net/ethernet/ti/cpsw.c	2018-08-28 14:03:00.187259415 -0500
++++ b/drivers/net/ethernet/ti/cpsw.c	2018-08-28 14:05:36.401690844 -0500
+@@ -1277,6 +1277,12 @@
+ 
+ 	soft_reset_slave(slave);
+ 
++	/* Don't initialize slaves with no associated PHY. */
++	if (!slave->data->phy_node) {
++		pr_err("cpsw: no PHY for slave %d\n", slave->slave_num);
++		return;
++	}
++
+ 	/* setup priority mapping */
+ 	__raw_writel(RX_PRIORITY_MAPPING, &slave->sliver->rx_pri_map);
+ 
+@@ -1317,7 +1323,7 @@
+ 		cpsw_ale_add_mcast(cpsw->ale, priv->ndev->broadcast,
+ 				   1 << slave_port, 0, 0, ALE_MCAST_FWD_2);
+ 
+-	if (slave->data->phy_node) {
++	{
+ 		phy = of_phy_connect(priv->ndev, slave->data->phy_node,
+ 				 &cpsw_adjust_link, 0, slave->data->phy_if);
+ 		if (!phy) {
+@@ -1326,16 +1332,6 @@
+ 				slave->slave_num);
+ 			return;
+ 		}
+-	} else {
+-		phy = phy_connect(priv->ndev, slave->data->phy_id,
+-				 &cpsw_adjust_link, slave->data->phy_if);
+-		if (IS_ERR(phy)) {
+-			dev_err(priv->dev,
+-				"phy \"%s\" not found on slave %d, err %ld\n",
+-				slave->data->phy_id, slave->slave_num,
+-				PTR_ERR(phy));
+-			return;
+-		}
+ 	}
+ 
+ 	slave->phy = phy;
+@@ -2669,40 +2665,9 @@
+ 							"phy-handle", 0);
+ 		parp = of_get_property(slave_node, "phy_id", &lenp);
+ 		if (slave_data->phy_node) {
+-			dev_dbg(&pdev->dev,
++			dev_err(&pdev->dev,
+ 				"slave[%d] using phy-handle=\"%pOF\"\n",
+ 				i, slave_data->phy_node);
+-		} else if (of_phy_is_fixed_link(slave_node)) {
+-			/* In the case of a fixed PHY, the DT node associated
+-			 * to the PHY is the Ethernet MAC DT node.
+-			 */
+-			ret = of_phy_register_fixed_link(slave_node);
+-			if (ret) {
+-				if (ret != -EPROBE_DEFER)
+-					dev_err(&pdev->dev, "failed to register fixed-link phy: %d\n", ret);
+-				return ret;
+-			}
+-			slave_data->phy_node = of_node_get(slave_node);
+-		} else if (parp) {
+-			u32 phyid;
+-			struct device_node *mdio_node;
+-			struct platform_device *mdio;
+-
+-			if (lenp != (sizeof(__be32) * 2)) {
+-				dev_err(&pdev->dev, "Invalid slave[%d] phy_id property\n", i);
+-				goto no_phy_slave;
+-			}
+-			mdio_node = of_find_node_by_phandle(be32_to_cpup(parp));
+-			phyid = be32_to_cpup(parp+1);
+-			mdio = of_find_device_by_node(mdio_node);
+-			of_node_put(mdio_node);
+-			if (!mdio) {
+-				dev_err(&pdev->dev, "Missing mdio platform device\n");
+-				return -EINVAL;
+-			}
+-			snprintf(slave_data->phy_id, sizeof(slave_data->phy_id),
+-				 PHY_ID_FMT, mdio->name, phyid);
+-			put_device(&mdio->dev);
+ 		} else {
+ 			dev_err(&pdev->dev,
+ 				"No slave[%d] phy_id, phy-handle, or fixed-link property\n",
