@@ -218,9 +218,8 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&spi0_pins_s0>;
 
-
-
     screen@0 {
+    	status = "okay";
         compatible = "sitronix,st7789v";
         reg = <0>;
         buswidth = <8>;
@@ -229,30 +228,15 @@
         spi-max-frequency = <32000000>;
 		width = <170>;
 		height = <320>;        
-        rotate = <0>;
+        rotate = <270>;
     };
 
-/*	
-
-    spidev@0 {
-        compatible = "sitronix,st7789v";
-        reg = <0>;
-        reset-gpios = <&gpio1 17 GPIO_ACTIVE_HIGH>;
-        buswidth = <8>;
-        dc-gpios = <&gpio1 16 GPIO_ACTIVE_HIGH>;
-        spi-max-frequency = <32000000>;
-		width = <320>;
-		height = <170>;        
-        rotate = <90>;
-    };
-   
 	spidev@0 {
-		status="okay";
+		status = "disabled";
 		compatible = "rohm,dh2228fv";
 		reg = <0>;
 		spi-max-frequency = <16000000>;
 	};
-*/ 	
 };
 
 &spi1 {
