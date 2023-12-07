@@ -1,0 +1,18 @@
+
+
+# fixes rpi (3B, 3B+, 3A+, 4B and Zero W) ttyAMA0 serial console
+dtoverlay=miniuart-bt
+
+# enable autoprobing of Bluetooth driver without need of hciattach/btattach
+dtparam=krnbt=on
+
+dtparam=spi=on
+
+dtoverlay=fbtft,spi0-0,st7789v
+dtparam=dc_pin=24
+dtparam=reset_pin=25
+dtparam=width=170
+dtparam=height=340
+dtparam=fps=25
+dtparam=rotate=0
+dtparam=speed=4500000

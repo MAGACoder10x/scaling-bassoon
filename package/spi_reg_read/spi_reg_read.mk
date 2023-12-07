@@ -3,7 +3,7 @@
 ########################################
 
 SPI_REG_READ_VERSION = 0.1
-SPI_REG_READ_SITE = $(BR2_EXTERNAL_RPI2W_CUSTOM_PATH)/package/spi_reg_read
+SPI_REG_READ_SITE = $(BR2_EXTERNAL_RPI_CUSTOM_PATH)/package/spi_reg_read
 SPI_REG_READ_SITE_METHOD = local
 
 SPI_REG_READ_INSTALL_STAGING = NO

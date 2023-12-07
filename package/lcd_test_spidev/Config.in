@@ -1,0 +1,4 @@
+config BR2_PACKAGE_LCD_TEST_SPIDEV
+	bool "lcd_test"
+	help
+		test ss7789 lcd display that uses spidev

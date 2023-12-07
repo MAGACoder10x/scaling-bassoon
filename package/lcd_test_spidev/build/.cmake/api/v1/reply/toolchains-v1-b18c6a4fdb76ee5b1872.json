@@ -1,0 +1,68 @@
+{
+	"kind" : "toolchains",
+	"toolchains" : 
+	[
+		{
+			"compiler" : 
+			{
+				"id" : "GNU",
+				"implicit" : 
+				{
+					"includeDirectories" : 
+					[
+						"/usr/include/c++/13.2.1",
+						"/usr/include/c++/13.2.1/x86_64-pc-linux-gnu",
+						"/usr/include/c++/13.2.1/backward",
+						"/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include",
+						"/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed",
+						"/home/jcoffman/buildroot/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/include"
+					],
+					"linkDirectories" : 
+					[
+						"/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1",
+						"/usr/lib",
+						"/home/jcoffman/buildroot/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/lib",
+						"/home/jcoffman/buildroot/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/lib"
+					],
+					"linkFrameworkDirectories" : [],
+					"linkLibraries" : 
+					[
+						"stdc++",
+						"m",
+						"gcc_s",
+						"gcc",
+						"c",
+						"gcc_s",
+						"gcc"
+					]
+				},
+				"path" : "/usr/bin/g++",
+				"version" : "13.2.1"
+			},
+			"language" : "CXX",
+			"sourceFileExtensions" : 
+			[
+				"C",
+				"M",
+				"c++",
+				"cc",
+				"cpp",
+				"cxx",
+				"m",
+				"mm",
+				"mpp",
+				"CPP",
+				"ixx",
+				"cppm",
+				"ccm",
+				"cxxm",
+				"c++m"
+			]
+		}
+	],
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

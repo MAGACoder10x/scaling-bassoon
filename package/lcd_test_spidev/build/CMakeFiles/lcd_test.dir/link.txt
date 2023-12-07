@@ -1,0 +1,1 @@
+/usr/bin/g++ --sysroot=/home/jcoffman/buildroot/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot -Wall -O3 CMakeFiles/lcd_test.dir/main.cpp.o -o lcd_test  -lgpiod -lstdc++ -lc /home/jcoffman/buildroot/output/host/arm-buildroot-linux-uclibcgnueabihf/sysroot/usr/lib/libboost_program_options.so 

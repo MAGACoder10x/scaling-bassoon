@@ -8,7 +8,7 @@ GENIMAGE_CFG="${BOARD_DIR}/genimage-${BOARD_NAME}.cfg"
 GENIMAGE_TMP="${BUILD_DIR}/genimage.tmp"
 
 #cp ${BR2_EXTERNAL_RPI2W_CUSTOM_PATH}/board/raspberrypi/2w/config.txt ${BINARIES_DIR}/rpi-firmware/config.txt
-cp ${BR2_EXTERNAL_RPI2W_CUSTOM_PATH}/board/raspberrypi/2w/${GENIMAGE_CFG} ${BINARIES_DIR}/${GENIMAGE_CFG}
+cp ${GENIMAGE_CFG} ${BINARIES_DIR}/genimage-${BOARD_NAME}.cfg
 
 # Pass an empty rootpath. genimage makes a full copy of the given rootpath to
 # ${GENIMAGE_TMP}/root so passing TARGET_DIR would be a waste of time and disk
