@@ -28,6 +28,9 @@ dtoverlay=miniuart-bt
 # enable autoprobing of Bluetooth driver without need of hciattach/btattach
 dtparam=krnbt=on
 
+#enable for seengreat 1.3 keys
+gpio=17,22,18,13,26,5,19,6,20,21,23=pu
+
 dtparam=spi=on
 
 dtoverlay=fbtft,spi0-0,st7789v
@@ -39,3 +42,5 @@ dtparam=height=240
 dtparam=fps=25
 dtparam=rotate=0
 dtparam=speed=32000000
+
+#dtoverlay=seengreat_1_3_keypad

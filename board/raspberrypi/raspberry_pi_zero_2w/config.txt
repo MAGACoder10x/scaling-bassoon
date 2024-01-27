@@ -22,14 +22,21 @@ gpu_mem_256=100
 gpu_mem_512=100
 gpu_mem_1024=100
 
-# fixes rpi (3B, 3B+, 3A+, 4B ,zero W and zero 2) ttyAMA0 serial console
-dtoverlay=miniuart-bt
 
-# enable autoprobing of Bluetooth driver without need of hciattach/btattach
-dtoverlay=krnbt=on
-
+##
+#  Settings for sx1262 LORAWAN HAT
+##
 #enable gpio pin 21 for sx1262 hat
 dtoverlay=spi0-1cs,cs0_pin=21
 
 dtparam=spi=on
 
+#disable bluetooth to use real uart
+
+# fixes rpi (3B, 3B+, 3A+, 4B ,zero W and zero 2) ttyAMA0 serial console
+#dtoverlay=miniuart-bt
+
+# enable autoprobing of Bluetooth driver without need of hciattach/btattach
+#dtoverlay=krnbt=on
+
+dtoverlay=disable-bt

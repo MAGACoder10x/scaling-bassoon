@@ -1,0 +1,2 @@
+root=/dev/mmcblk0p2 rootwait console=tty1 uio_pdrv_genirq.of_id=mydevice,generic-uio,ui_pdrv
+

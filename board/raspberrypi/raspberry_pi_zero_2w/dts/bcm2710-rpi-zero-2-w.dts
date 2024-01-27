@@ -19,6 +19,13 @@
 		serial1 = &uart0;
 		mmc1 = &mmcnr;
 	};
+
+	user_io@0 {
+    	compatible = "mydevice,generic-uio,ui_pdrv";
+    	status = "okay";
+    	interrupt-parent = <&gpio>;
+   		interrupts = <16 IRQ_TYPE_EDGE_RISING>;	
+	};
 };
 
 &gpio {

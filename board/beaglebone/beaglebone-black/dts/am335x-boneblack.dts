@@ -17,6 +17,40 @@
 		base_dtb = "am335x-boneblack.dts";
 		base_dtb_timestamp = __TIMESTAMP__;
 	};
+
+	keypad: keypad {
+					compatible = "gpio-keys-polled";
+					autorepeat;
+					#address-cells = <1>;
+					#size-cells = <0>;
+					status = "okay";
+					poll-interval = <100>;			
+					UP {
+						label = "L LEFT";
+						linux,code = <103>;
+						gpios = <&gpio1 13 0>;
+					};
+					DOWN {
+						label = "L DOWN";
+						linux,code = <108>;
+						gpios = <&gpio1 15 0>;
+					};
+					LEFT {
+						label = "L RIGHT";
+						linux,code = <105>;
+						gpios = <&gpio1 12 0>;
+					};
+					RIGHT {
+						label = "L UP";
+						linux,code = <106>;
+						gpios = <&gpio0 26 0>;
+					};
+					CENT {
+						label = "L CENTER";
+						linux,code = <28>;
+						gpios = <&gpio1 14 0>;
+					};
+				};	
 };
 
 &cpu0_opp_table {
@@ -225,6 +259,7 @@
         buswidth = <8>;
         reset-gpios = <&gpio1 17 GPIO_ACTIVE_HIGH>;        
         dc-gpios = <&gpio1 16 GPIO_ACTIVE_HIGH>;
+        lcd_pin = <&gpio0 20 GPIO_ACTIVE_HIGH>;
         spi-max-frequency = <32000000>;
 		width = <170>;
 		height = <320>;        

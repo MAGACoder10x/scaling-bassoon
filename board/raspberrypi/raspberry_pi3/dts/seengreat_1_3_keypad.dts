@@ -1,0 +1,44 @@
+/dts-v1/;
+/plugin/;
+/ {
+	compatible = "brcm,bcm2835", "brcm,bcm2708", "brcm,bcm2709";
+	
+	fragment@0 {
+		target-path = "/soc";
+		__overlay__ {
+			keypad: keypad {
+				compatible = "gpio-keys-polled";
+				autorepeat;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				status = "okay";
+				poll-interval = <100>;			
+				LEFT@5 {
+					label = "L LEFT";
+					linux,code = <105>;
+					gpios = <&gpio 5 1>;
+				};
+				DOWN@26 {
+					label = "L DOWN";
+					linux,code = <108>;
+					gpios = <&gpio 26 1>;
+				};
+				RIGHT@19 {
+					label = "L RIGHT";
+					linux,code = <106>;
+					gpios = <&gpio 19 1>;
+				};
+				UP@13 {
+					label = "L UP";
+					linux,code = <103>;
+					gpios = <&gpio 13 1>;
+				};
+				CENT@6 {
+					label = "L CENTER";
+					linux,code = <28>;
+					gpios = <&gpio 6 1>;
+				};
+			};
+		};
+	};
+};
