@@ -1,0 +1,20 @@
+--- output/build/dosboxx-dosbox-x-v2024.10.01/src/Makefile	2024-10-02 23:44:59.456943518 -0700
++++ output/build/dosboxx-dosbox-x-v2024.10.01/src/Makefile	2024-10-02 23:44:52.886849168 -0700
+@@ -118,7 +118,7 @@ dosbox_x_DEPENDENCIES = debug/libdebug.a
+ 	builtin/libbuiltin.a ints/libints.a \
+ 	hardware/serialport/libserial.a hardware/parport/libparallel.a \
+ 	libs/passthroughio/libpassthroughio.a gui/libgui.a \
+-	libs/gui_tk/libgui_tk.a hardware/libhardware.a cpu/libcpu.a \
++	libs/gui_tk/libgui_tk.a hardware/libhardware.a hardware/serialport/libserial.a cpu/libcpu.a \
+ 	hardware/reSID/libresid.a fpu/libfpu.a gui/libgui.a \
+ 	misc/libmisc.a output/liboutput.a hardware/mame/libmame.a \
+ 	libs/zmbv/libzmbv.a libs/decoders/internal/libopusint.a \
+@@ -392,7 +392,7 @@ dosbox_x_LDADD = debug/libdebug.a dos/li
+ 	builtin/libbuiltin.a ints/libints.a \
+ 	hardware/serialport/libserial.a hardware/parport/libparallel.a \
+ 	libs/passthroughio/libpassthroughio.a gui/libgui.a \
+-	libs/gui_tk/libgui_tk.a hardware/libhardware.a cpu/libcpu.a \
++	libs/gui_tk/libgui_tk.a hardware/libhardware.a hardware/serialport/libserial.a cpu/libcpu.a \
+ 	hardware/reSID/libresid.a fpu/libfpu.a gui/libgui.a \
+ 	misc/libmisc.a output/liboutput.a hardware/mame/libmame.a \
+ 	libs/zmbv/libzmbv.a libs/decoders/internal/libopusint.a \

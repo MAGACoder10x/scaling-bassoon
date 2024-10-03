@@ -1,0 +1,57 @@
+#!/bin/sh
+#
+# Starts wifi networking on rpi zero 2w
+#
+start() {
+  printf 'Starting Wifi Networking'
+  
+  modprobe brcmfmac
+  
+  status=$?
+  if [ "$status" -eq 0 ]; then
+    echo "OK"
+  else
+    echo "FAIL"
+  fi
+
+  sleep 4
+
+  wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant.conf
+  
+  status=$?
+  if [ "$status" -eq 0 ]; then
+    echo "OK"
+  else
+    echo "FAIL"
+  fi
+  return "$status"
+}
+
+stop() {
+  printf 'Stopping Wifi Networking'
+  status=$?
+  if [ "$status" -eq 0 ]; then
+    rm -f "$PIDFILE"
+    echo "OK"
+  else
+    echo "FAIL"
+  fi
+  return "$status"
+}
+
+restart() {
+  stop
+  sleep 1
+  start
+}
+
+case "$1" in
+  start|stop|restart)
+    "$1";;
+  reload)
+    # Restart, since there is no true "reload" feature.
+    restart;;
+  *)
+    echo "Usage: $0 {start|stop|restart|reload}"
+    exit 1
+esac
