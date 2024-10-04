@@ -1,10 +1,12 @@
 ##################################################################
 #
 ##################################################################
-menu "pi zero 2 w options"
+menu "pi application options"
 	source "$BR2_EXTERNAL_RPI_CUSTOM_PATH/package/web_app/Config.in"
 	source "$BR2_EXTERNAL_RPI_CUSTOM_PATH/package/spi_reg_read/Config.in"
 	source "$BR2_EXTERNAL_RPI_CUSTOM_PATH/package/lcd_test/Config.in"
 	source "$BR2_EXTERNAL_RPI_CUSTOM_PATH/package/lcd_test_spidev/Config.in"
 	source "$BR2_EXTERNAL_RPI_CUSTOM_PATH/package/sysfs_test/Config.in"
+	source "$BR2_EXTERNAL_RPI_CUSTOM_PATH/package/dosboxx/Config.in"
+	source "$BR2_EXTERNAL_RPI_CUSTOM_PATH/package/dosbox/Config.in"
 endmenu

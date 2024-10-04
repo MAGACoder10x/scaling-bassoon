@@ -31,8 +31,10 @@ dtparam=krnbt=on
 # enable 64bits support
 arm_64bit=1
 
-hdmi_ignore_edid_audio=1
-audio_pwm_mode=2
+#enable speaker audio jack
+#hdmi_ignore_edid_audio=1
+dtparam=audio=on
+audio_pwm_mode=0
 
 gpio=0-9=a2
 gpio=12-17=a2
@@ -45,5 +47,7 @@ dpi_group=2
 dpi_mode=87
 dpi_output_format=0x6f006
 hdmi_timings=640 0 20 10 10 480 0 10 5 5 0 0 0 60 0 60000000 1
+dtoverlay=waveshare-35dpi-3b-4b
+dtoverlay=waveshare-35dpi-3b
 dtoverlay=waveshare-35dpi-4b
 
