@@ -1,17 +1,18 @@
 /dts-v1/;
 
-#include "bcm2710.dtsi"
-#include "bcm2709-rpi.dtsi"
-#include "bcm283x-rpi-csi1-2lane.dtsi"
-#include "bcm283x-rpi-i2c0mux_0_44.dtsi"
-#include "bcm2708-rpi-bt.dtsi"
+#include "broadcom/bcm2710.dtsi"
+#include "broadcom/bcm2709-rpi.dtsi"
+#include "broadcom/bcm283x-rpi-csi1-2lane.dtsi"
+#include "broadcom/bcm283x-rpi-i2c0mux_0_44.dtsi"
+#include "broadcom/bcm2708-rpi-bt.dtsi"
+#include "broadcom/bcm283x-rpi-led-deprecated.dtsi"
 
 / {
 	compatible = "raspberrypi,model-zero-2-w", "brcm,bcm2837";
 	model = "Raspberry Pi Zero 2 W";
 
 	chosen {
-		bootargs = "coherent_pool=1M 8250.nr_uarts=1 snd_bcm2835.enable_compat_alsa=0 snd_bcm2835.enable_hdmi=1";
+		bootargs = "coherent_pool=1M 8250.nr_uarts=1 snd_bcm2835.enable_headphones=0";
 	};
 
 	aliases {
@@ -25,10 +26,76 @@
     	status = "okay";
     	interrupt-parent = <&gpio>;
    		interrupts = <16 IRQ_TYPE_EDGE_RISING>;	
-	};
+	};	
 };
 
 &gpio {
+	/*
+	 * This is based on the official GPU firmware DT blob.
+	 *
+	 * Legend:
+	 * "NC" = not connected (no rail from the SoC)
+	 * "FOO" = GPIO line named "FOO" on the schematic
+	 * "FOO_N" = GPIO line named "FOO" on schematic, active low
+	 */
+	gpio-line-names = "ID_SDA",
+			  "ID_SCL",
+			  "GPIO2",
+			  "GPIO3",
+			  "GPIO4",
+			  "GPIO5",
+			  "GPIO6",
+			  "GPIO7",
+			  "GPIO8",
+			  "GPIO9",
+			  "GPIO10",
+			  "GPIO11",
+			  "GPIO12",
+			  "GPIO13",
+			  "GPIO14",
+			  "GPIO15",
+			  "GPIO16",
+			  "GPIO17",
+			  "GPIO18",
+			  "GPIO19",
+			  "GPIO20",
+			  "GPIO21",
+			  "GPIO22",
+			  "GPIO23",
+			  "GPIO24",
+			  "GPIO25",
+			  "GPIO26",
+			  "GPIO27",
+			  "HDMI_HPD_N",
+			  "STATUS_LED_N",
+			  /* Used by BT module */
+			  "CTS0",
+			  "RTS0",
+			  "TXD0",
+			  "RXD0",
+			  /* Used by Wifi */
+			  "SD1_CLK",
+			  "SD1_CMD",
+			  "SD1_DATA0",
+			  "SD1_DATA1",
+			  "SD1_DATA2",
+			  "SD1_DATA3",
+			  "CAM_GPIO1", /* GPIO40 */
+			  "WL_ON", /* GPIO41 */
+			  "BT_ON", /* GPIO42 */
+			  "WIFI_CLK", /* GPIO43 */
+			  "SDA0", /* GPIO44 */
+			  "SCL0", /* GPIO45 */
+			  "SMPS_SCL", /* GPIO46 */
+			  "SMPS_SDA", /* GPIO47 */
+			  /* Used by SD Card */
+			  "SD_CLK_R",
+			  "SD_CMD_R",
+			  "SD_DATA0_R",
+			  "SD_DATA1_R",
+			  "SD_DATA2_R",
+			  "SD_DATA3_R";
+
 	spi0_pins: spi0_pins {
 		brcm,pins = <9 10 11>;
 		brcm,function = <4>; /* alt0 */
@@ -78,6 +145,12 @@
 		brcm,pull;
 	};
 
+	uart1_bt_pins: uart1_bt_pins {
+		brcm,pins = <32 33 30 31>;
+		brcm,function = <BCM2835_FSEL_ALT5>; /* alt5=UART1 */
+		brcm,pull = <0 2 2 0>;
+	};
+
 	audio_pins: audio_pins {
 		brcm,pins = <>;
 		brcm,function = <>;
@@ -95,19 +168,6 @@
 	brcmf: wifi@1 {
 		reg = <1>;
 		compatible = "brcm,bcm4329-fmac";
-
-		firmwares {
-			fw_43436p {
-				chipid = <43430>;
-				revmask = <4>;
-				fw_base = "brcm/brcmfmac43436-sdio";
-			};
-			fw_43436s {
-				chipid = <43430>;
-				revmask = <2>;
-				fw_base = "brcm/brcmfmac43436s-sdio";
-			};
-		};
 	};
 };
 
@@ -126,7 +186,7 @@
 &spi0 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&spi0_pins &spi0_cs_pins>;
-	cs-gpios = <&gpio 8 1>, <&gpio 21 1>;
+	cs-gpios = <&gpio 8 1>, <&gpio 7 1>;
 
 	spidev0: spidev@0{
 		compatible = "spidev";
@@ -164,22 +224,19 @@
 	pinctrl-0 = <&i2s_pins>;
 };
 
-&leds {
-	act_led: led-act {
-		label = "led0";
-		linux,default-trigger = "actpwr";
-		gpios = <&gpio 29 GPIO_ACTIVE_LOW>;
-	};
+&led_act {
+	gpios = <&gpio 29 GPIO_ACTIVE_LOW>;
+	default-state = "off";
+	linux,default-trigger = "actpwr";
 };
 
 &hdmi {
 	hpd-gpios = <&gpio 28 GPIO_ACTIVE_LOW>;
 };
 
-&audio {
+&vchiq {
 	pinctrl-names = "default";
 	pinctrl-0 = <&audio_pins>;
-	brcm,disable-headphones = <1>;
 };
 
 &bt {
@@ -197,10 +254,15 @@
 cam0_reg: &cam_dummy_reg {
 };
 
+i2c_csi_dsi0: &i2c0 {
+};
+
 / {
 	__overrides__ {
-		act_led_gpio = <&act_led>,"gpios:4";
-		act_led_activelow = <&act_led>,"gpios:8";
-		act_led_trigger = <&act_led>,"linux,default-trigger";
+		audio = <&chosen>,"bootargs{on='snd_bcm2835.enable_hdmi=1',off='snd_bcm2835.enable_hdmi=0'}";
+
+		act_led_gpio = <&led_act>,"gpios:4";
+		act_led_activelow = <&led_act>,"gpios:8";
+		act_led_trigger = <&led_act>,"linux,default-trigger";
 	};
 };

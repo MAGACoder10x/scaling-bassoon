@@ -23,3 +23,12 @@ if [ -e ${BINARIES_DIR}/rpi-firmware ]; then
     cp ${BR2_EXTERNAL_RPI_CUSTOM_PATH}/board/raspberrypi/raspberry_pi4/dts/waveshare-35dpi-3b.dtbo ${BINARIES_DIR}/rpi-firmware/    
     cp ${BR2_EXTERNAL_RPI_CUSTOM_PATH}/board/raspberrypi/raspberry_pi4/dts/waveshare-35dpi-4b.dtbo ${BINARIES_DIR}/rpi-firmware/
 fi
+
+#copy modules
+cp ${TARGET_DIR}/lib/modules/6.6.28-v8/kernel/drivers/bluetooth/btbcm.ko.xz ${TARGET_DIR}/etc/sysconfig/modules
+cp ${TARGET_DIR}/lib/modules/6.6.28-v8/kernel/drivers/bluetooth/hci_uart.ko.xz ${TARGET_DIR}/etc/sysconfig/modules
+cp ${TARGET_DIR}/lib/modules/6.6.28-v8/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko.xz ${TARGET_DIR}/etc/sysconfig/modules
+
+
+
+
